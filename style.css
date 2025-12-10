@@ -10,13 +10,13 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 30px 150px;
+    padding: 10px 50px;
     background: #0077cc;
     color: #fff;
 }
 
 header .logo {
-    height: 50px;
+    height: 100px;
 }
 
 nav ul {
@@ -98,4 +98,5 @@ textarea, input[type="email"] {
     font-weight: 600;
     z-index: 9999; /* stays above everything */
 }
+
 
