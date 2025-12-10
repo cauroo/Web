@@ -10,7 +10,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 50px;
+    padding: 30px 150px;
     background: #0077cc;
     color: #fff;
 }
@@ -98,3 +98,4 @@ textarea, input[type="email"] {
     font-weight: 600;
     z-index: 9999; /* stays above everything */
 }
+
