@@ -1,89 +1,88 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f4f4f4;
-    color: #333;
-}
+document.addEventListener('DOMContentLoaded', () => {
 
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 50px;
-    background: #0077cc;
-    color: #fff;
-}
+    // ---- Categories Page ----
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    if (categoryBtns.length > 0) {
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.getAttribute('data-category');
+                localStorage.setItem('selectedCategory', category);
+                window.location.href = 'subcategories.html';
+            });
+        });
+    }
 
-header .logo {
-    height: 50px;
-}
+    // ---- Subcategories Page ----
+    const subcategoriesContainer = document.getElementById('subcategories');
+    const subcategoryTitle = document.getElementById('subcategory-title');
+    const nextBtn = document.getElementById('next-step');
 
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
+    if (subcategoriesContainer) {
+        const category = localStorage.getItem('selectedCategory');
+        if (!category) {
+            window.location.href = 'categories.html';
+        }
 
-nav a {
-    color: #fff;
-    text-decoration: none;
-}
+        subcategoryTitle.textContent = `Select Subcategory for ${category}`;
 
-main {
-    text-align: center;
-    padding: 100px 20px;
-}
+        let subcategories = [];
+        if (category === "Automation & Control Systems") {
+            subcategories = ["Embedded & Microcontroller Systems", "Smart Home & IoT Systems", "Other Automation Services"];
+        } else if (category === "Equipment & Device Servicing") {
+            subcategories = ["Household Appliances", "Consumer Electronics", "Electronic Toys & Gadgets", "Other Repair Services"];
+        } else if (category === "Software & Application Solutions") {
+            subcategories = ["Web Development & Design", "Mobile & Desktop Applications", "Other Software Solutions"];
+        } else {
+            subcategories = ["Custom Services"];
+        }
 
-.btn {
-    display: inline-block;
-    padding: 15px 30px;
-    margin-top: 20px;
-    background: #0077cc;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
+        subcategories.forEach(sub => {
+            const btn = document.createElement('button');
+            btn.textContent = sub;
+            btn.classList.add('subcategory-btn');
+            subcategoriesContainer.appendChild(btn);
 
-.categories-container, .subcategories-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
-}
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.subcategory-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                localStorage.setItem('selectedSubcategory', sub);
+                nextBtn.disabled = false;
+            });
+        });
 
-.category-btn, .subcategory-btn {
-    padding: 15px 30px;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    background: #0077cc;
-    color: white;
-    transition: 0.3s;
-}
+        nextBtn.addEventListener('click', () => {
+            window.location.href = 'details.html';
+        });
+    }
 
-.category-btn:hover, .subcategory-btn:hover {
-    background: #005fa3;
-}
+    // ---- Details Page ----
+    const summaryCategory = document.getElementById('summary-category');
+    const summarySubcategory = document.getElementById('summary-subcategory');
+    const submitBtn = document.getElementById('submit-btn');
 
-.subcategory-btn.selected {
-    background: #28a745;
-}
+    if (summaryCategory && summarySubcategory) {
+        summaryCategory.textContent = localStorage.getItem('selectedCategory') || "N/A";
+        summarySubcategory.textContent = localStorage.getItem('selectedSubcategory') || "N/A";
 
-textarea, input[type="email"] {
-    width: 100%;
-    max-width: 600px;
-    margin: 15px 0;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
+        submitBtn.addEventListener('click', () => {
+            const extraInfo = document.getElementById('extra-info').value;
+            const userEmail = document.getElementById('user-email').value;
 
-.summary {
-    margin: 20px 0;
-    text-align: center;
-}
+            if (!userEmail) {
+                alert("Please enter your email for feedback.");
+                return;
+            }
+
+            const requestData = {
+                category: localStorage.getItem('selectedCategory'),
+                subcategory: localStorage.getItem('selectedSubcategory'),
+                extraInfo,
+                email: userEmail
+            };
+            console.log("Request submitted:", requestData);
+
+            window.location.href = 'thankyou.html';
+        });
+    }
+
+});
