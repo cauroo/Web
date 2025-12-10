@@ -16,7 +16,7 @@ header {
 }
 
 header .logo {
-    height: 100px;
+    height: 200px;
 }
 
 nav ul {
@@ -98,5 +98,6 @@ textarea, input[type="email"] {
     font-weight: 600;
     z-index: 9999; /* stays above everything */
 }
+
 
 
