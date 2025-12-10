@@ -86,3 +86,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+if(!document.getElementById('google-translate-script')) {
+    window.googleTranslateElementInit = function() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'mk',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    };
+    var script = document.createElement('script');
+    script.id = 'google-translate-script';
+    script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    document.body.appendChild(script);
+}
+
+
