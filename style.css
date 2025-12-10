@@ -18,7 +18,7 @@ header {
 
 
 header .logo {
-    height: 100%;   /* always fits inside header height */
+    height: 100px;   /* always fits inside header height */
     width: auto;    /* keep proportions */
     object-fit: contain;
 }
@@ -102,6 +102,7 @@ textarea, input[type="email"] {
     font-weight: 600;
     z-index: 9999; /* stays above everything */
 }
+
 
 
 
